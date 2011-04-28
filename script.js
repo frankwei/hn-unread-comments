@@ -17,9 +17,6 @@ Storage.prototype.getObject = function ( key ) {
 	return JSON.parse ( item );
 };
 
-// get the background colour of the top navigation bar
-var unreadColour = $( 'table:first td:first' ).attr ( 'bgcolor' );
-
 // get all comments on this page
 var $comments = null;
 
@@ -33,6 +30,7 @@ if ( ( document.location + '' ).indexOf ( 'item?id=' ) > 0 ) {
 
 // get all stored unread comments
 var readComments = localStorage.getObject ( 'read_comments_list' );
+
 if ( readComments === undefined || readComments === null ) {
 	readComments = {};
 }
@@ -43,11 +41,17 @@ $comments.each ( function () {
 	var commentContentMd5 = md5 ( $this.find ( 'table td:eq(2) span.comment' ).text () );
 
 	if ( readComments[commentContentMd5] === undefined ) {
-		// mark this comments as unread
-		$this.find ( 'table td:eq(2)' ).css ( 'border', '1px solid ' + unreadColour );
-
+		// mark this comment as unread if we've already visited the page
+		if( readComments[ md5 ( document.location) ]===true ) { 
+			$this.find ( 'table td:eq(2)' ).css ( 'background-color', '#eefa93' );
+		}
 		readComments[commentContentMd5] = true;
 	}
 } );
+
+//marks the current page as read
+if( readComments[ md5 ( document.location) ]===false ) {
+	readComments[ md5 ( document.location) ]=true;
+}
 
 localStorage.setObject ( 'read_comments_list', readComments );
