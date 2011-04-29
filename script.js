@@ -50,7 +50,7 @@ $comments.each ( function () {
 } );
 
 //marks the current page as read
-if( readComments[ md5 ( document.location) ]===false ) {
+if( readComments[ md5 ( document.location) ]===undefined ) {
 	readComments[ md5 ( document.location) ]=true;
 }
 
