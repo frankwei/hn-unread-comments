@@ -43,7 +43,7 @@ $comments.each ( function () {
 	if ( readComments[commentContentMd5] === undefined ) {
 		// mark this comment as unread if we've already visited the page
 		if( readComments[ md5 ( document.location) ]===true ) { 
-			$this.find ( 'table td:eq(2)' ).css ( 'background-color', '#eefa93' );
+			$this.find ( 'table td:eq(2)' ).css ( 'background-color', '#f7ffc2' );
 		}
 		readComments[commentContentMd5] = true;
 	}
